@@ -1,4 +1,5 @@
 import { GetStaticProps } from 'next'
+import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -42,30 +43,36 @@ export default function Home({ products }: HomeProps) {
   })
 
   return (
-    <HomeContainer>
-      <HomeWrapper ref={sliderRef} className="keen-slider">
-        {products.map((product) => (
-          <Link
-            key={product.id}
-            href={`/product/${product.id}`}
-            prefetch={false}
-          >
-            <Product className="keen-slider__slide">
-              <Image src={product.imageUrl} width={520} height={480} alt="" />
-              <footer>
-                <strong>{product.name}</strong>
-                <span>{product.price}</span>
-              </footer>
-            </Product>
-          </Link>
-        ))}
-      </HomeWrapper>
+    <>
+      <Head>
+        <title>Home | Ignite Shop</title>
+      </Head>
 
-      <ButtonContainer>
-        <button onClick={() => instanceRef.current.prev()}>Anterior</button>
-        <button onClick={() => instanceRef.current.next()}>Próximo</button>
-      </ButtonContainer>
-    </HomeContainer>
+      <HomeContainer>
+        <HomeWrapper ref={sliderRef} className="keen-slider">
+          {products.map((product) => (
+            <Link
+              key={product.id}
+              href={`/product/${product.id}`}
+              prefetch={false}
+            >
+              <Product className="keen-slider__slide">
+                <Image src={product.imageUrl} width={520} height={480} alt="" />
+                <footer>
+                  <strong>{product.name}</strong>
+                  <span>{product.price}</span>
+                </footer>
+              </Product>
+            </Link>
+          ))}
+        </HomeWrapper>
+
+        <ButtonContainer>
+          <button onClick={() => instanceRef.current.prev()}>Anterior</button>
+          <button onClick={() => instanceRef.current.next()}>Próximo</button>
+        </ButtonContainer>
+      </HomeContainer>
+    </>
   )
 }
 
