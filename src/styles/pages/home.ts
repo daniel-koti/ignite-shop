@@ -2,6 +2,8 @@ import { styled } from '..'
 import Link from 'next/link'
 
 export const HomeContainer = styled('main', {
+  position: 'relative',
+
   width: '100%',
   maxWidth: 'calc(100vw - ((100vw - 1180px) / 2))',
   marginLeft: 'auto',
@@ -84,23 +86,46 @@ export const Product = styled(Link, {
   },
 })
 
-export const ButtonContainer = styled('div', {
-  marginTop: '1rem',
+export const ButtonSliderRight = styled('button', {
+  position: 'absolute',
+  border: 'none',
+  top: 0,
+  right: 0,
+  height: '100%',
+  width: 136,
+  background:
+    'linear-gradient(90deg, rgba(18, 18, 20, 0) 0%, rgba(18, 18, 20, 0.75) 100%);',
+  color: '$gray300',
+  cursor: 'pointer',
 
   display: 'flex',
-  gap: '0.5rem',
+  alignItems: 'center',
+  justifyContent: 'end',
 
-  button: {
-    padding: '1rem',
-    cursor: 'pointer',
-    borderRadius: 4,
-    border: '1px solid $green500',
-    backgroundColor: 'transparent',
-    color: '$green500',
-    fontSize: '1.125rem',
+  '&:hover': {
+    color: '$gray100',
+  },
+})
 
-    '&:hover': {
-      filter: 'brightness(0.8)',
-    },
+export const ButtonSliderLeft = styled('button', {
+  position: 'absolute',
+  border: 'none',
+  top: 0,
+  left: 0,
+  height: '100%',
+  width: 136,
+  background:
+    'linear-gradient(90deg, rgba(18, 18, 20, 0) 0%, rgba(18, 18, 20, 0.75) 100%)',
+
+  transform: 'matrix(-1, 0, 0, 1, 0, 0)',
+  color: '$gray300',
+  cursor: 'pointer',
+
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'end',
+
+  '&:hover': {
+    color: '$gray100',
   },
 })

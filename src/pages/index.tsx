@@ -8,7 +8,8 @@ import {
   HomeWrapper,
   ProductWrapper,
   Product,
-  ButtonContainer,
+  ButtonSliderRight,
+  ButtonSliderLeft,
 } from '../styles/pages/home'
 
 import { useKeenSlider } from 'keen-slider/react'
@@ -17,7 +18,8 @@ import { stripe } from '../lib/stripe'
 import 'keen-slider/keen-slider.min.css'
 
 import Stripe from 'stripe'
-import { Handbag } from 'phosphor-react'
+import { CaretRight, Handbag } from 'phosphor-react'
+import { useState } from 'react'
 
 interface HomeProps {
   products: {
@@ -29,7 +31,9 @@ interface HomeProps {
 }
 
 export default function Home({ products }: HomeProps) {
+  const [currentSlide, setCurrentSlide] = useState(0)
   const [sliderRef, instanceRef] = useKeenSlider({
+    initial: 0,
     breakpoints: {
       '(min-width: 640px)': {
         slides: {
@@ -43,6 +47,16 @@ export default function Home({ products }: HomeProps) {
       spacing: 24,
     },
   })
+
+  function handleButtonSlide(type: 'prev' | 'next') {
+    if (type === 'prev') {
+      instanceRef.current.prev()
+      setCurrentSlide((state) => state - 1)
+    } else {
+      instanceRef.current.next()
+      setCurrentSlide((state) => state + 1)
+    }
+  }
 
   return (
     <>
@@ -70,12 +84,20 @@ export default function Home({ products }: HomeProps) {
               </footer>
             </ProductWrapper>
           ))}
-        </HomeWrapper>
 
-        <ButtonContainer>
-          <button onClick={() => instanceRef.current.prev()}>Anterior</button>
-          <button onClick={() => instanceRef.current.next()}>Próximo</button>
-        </ButtonContainer>
+          {currentSlide !== 0 && (
+            <ButtonSliderLeft onClick={() => handleButtonSlide('prev')}>
+              <CaretRight size={32} />
+            </ButtonSliderLeft>
+          )}
+
+          {currentSlide !==
+            instanceRef.current?.track?.details?.slides?.length - 1 && (
+            <ButtonSliderRight onClick={() => handleButtonSlide('next')}>
+              <CaretRight size={32} />
+            </ButtonSliderRight>
+          )}
+        </HomeWrapper>
       </HomeContainer>
     </>
   )
