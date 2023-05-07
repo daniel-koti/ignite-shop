@@ -1,4 +1,5 @@
 import { styled } from '..'
+import Link from 'next/link'
 
 export const HomeContainer = styled('main', {
   width: '100%',
@@ -11,27 +12,15 @@ export const HomeWrapper = styled('div', {
   display: 'flex',
 })
 
-export const Product = styled('div', {
-  background: 'linear-gradient(180deg, #1ea483 0%, #7465d4 100%)',
-  borderRadius: 8,
-
-  cursor: 'pointer',
+export const ProductWrapper = styled('div', {
   position: 'relative',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  overflow: 'hidden',
-
-  img: {
-    objectFit: 'cover',
-  },
 
   footer: {
     position: 'absolute',
     bottom: '0.5rem',
     right: '0.5rem',
     left: '0.5rem',
-    padding: '2rem',
+    padding: '1.25rem',
 
     borderRadius: 4,
 
@@ -44,15 +33,34 @@ export const Product = styled('div', {
     opacity: 0,
     transition: 'all 0.2s ease-in-out',
 
-    strong: {
-      fontSize: '$lg',
-      color: '$gray100',
+    '> div': {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: 4,
+
+      strong: {
+        fontSize: '$lg',
+        color: '$gray100',
+      },
+
+      span: {
+        fontSize: '$xl',
+        fontWeight: 'bold',
+        color: '$green500',
+      },
     },
 
-    span: {
-      fontSize: '$xl',
-      fontWeight: 'bold',
-      color: '$green500',
+    button: {
+      borderRadius: 6,
+      background: '$green500',
+      border: 0,
+      color: '$white',
+      padding: 12,
+      cursor: 'pointer',
+
+      '&:hover': {
+        backgroundColor: '$green300',
+      },
     },
   },
 
@@ -61,6 +69,18 @@ export const Product = styled('div', {
       transform: 'translateY(0%)',
       opacity: 1,
     },
+  },
+})
+
+export const Product = styled(Link, {
+  background: 'linear-gradient(180deg, #1ea483 0%, #7465d4 100%)',
+  display: 'flex',
+  justifyContent: 'center',
+  borderRadius: 8,
+  cursor: 'pointer',
+
+  img: {
+    objectFit: 'cover',
   },
 })
 
