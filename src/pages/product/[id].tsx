@@ -12,7 +12,8 @@ import {
 import Stripe from 'stripe'
 import Image from 'next/image'
 import axios from 'axios'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
+import { CartContext } from '@/src/contexts/CartContext'
 
 interface ProductProps {
   product: {
@@ -26,6 +27,7 @@ interface ProductProps {
 }
 
 export default function Product({ product }: ProductProps) {
+  const { addProductOnCart } = useContext(CartContext)
   const [isCreatingCheckoutSession, setIsCreatingCheckoutSession] =
     useState(false)
   const { isFallback } = useRouter()
@@ -74,9 +76,9 @@ export default function Product({ product }: ProductProps) {
 
           <button
             disabled={isCreatingCheckoutSession}
-            onClick={handleBuyProduct}
+            onClick={() => addProductOnCart(product)}
           >
-            Comprar agora
+            Colocar na sacola
           </button>
         </ProductDetails>
       </ProductContainer>

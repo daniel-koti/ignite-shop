@@ -2,8 +2,6 @@ import { styled } from '..'
 import Link from 'next/link'
 
 export const HomeContainer = styled('main', {
-  position: 'relative',
-
   width: '100%',
   maxWidth: 'calc(100vw - ((100vw - 1180px) / 2))',
   marginLeft: 'auto',
@@ -57,7 +55,8 @@ export const ProductWrapper = styled('div', {
       background: '$green500',
       border: 0,
       color: '$white',
-      padding: 12,
+      height: 56,
+      width: 56,
       cursor: 'pointer',
 
       '&:hover': {

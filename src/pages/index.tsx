@@ -1,7 +1,6 @@
 import { GetStaticProps } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
-import Link from 'next/link'
 
 import {
   HomeContainer,
@@ -19,7 +18,8 @@ import 'keen-slider/keen-slider.min.css'
 
 import Stripe from 'stripe'
 import { CaretRight, Handbag } from 'phosphor-react'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
+import { CartContext } from '../contexts/CartContext'
 
 interface HomeProps {
   products: {
@@ -32,12 +32,13 @@ interface HomeProps {
 
 export default function Home({ products }: HomeProps) {
   const [currentSlide, setCurrentSlide] = useState(0)
+  const { addProductOnCart } = useContext(CartContext)
   const [sliderRef, instanceRef] = useKeenSlider({
     initial: 0,
     breakpoints: {
       '(min-width: 640px)': {
         slides: {
-          perView: 2,
+          perView: 3,
           spacing: 48,
         },
       },
@@ -60,10 +61,6 @@ export default function Home({ products }: HomeProps) {
 
   return (
     <>
-      <Head>
-        <title>Home | Ignite Shop</title>
-      </Head>
-
       <HomeContainer>
         <HomeWrapper ref={sliderRef} className="keen-slider">
           {products.map((product) => (
@@ -78,7 +75,7 @@ export default function Home({ products }: HomeProps) {
                   <span>{product.price}</span>
                 </div>
 
-                <button>
+                <button onClick={() => addProductOnCart(product)}>
                   <Handbag size={32} weight="bold" />
                 </button>
               </footer>
@@ -92,7 +89,7 @@ export default function Home({ products }: HomeProps) {
           )}
 
           {currentSlide !==
-            instanceRef.current?.track?.details?.slides?.length - 1 && (
+            instanceRef.current?.track?.details?.slides.length - 3 && (
             <ButtonSliderRight onClick={() => handleButtonSlide('next')}>
               <CaretRight size={32} />
             </ButtonSliderRight>
