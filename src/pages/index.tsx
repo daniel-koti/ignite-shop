@@ -1,5 +1,4 @@
 import { GetStaticProps } from 'next'
-import Head from 'next/head'
 import Image from 'next/image'
 
 import {
@@ -19,15 +18,11 @@ import 'keen-slider/keen-slider.min.css'
 import Stripe from 'stripe'
 import { CaretRight, Handbag } from 'phosphor-react'
 import { useContext, useState } from 'react'
-import { CartContext } from '../contexts/CartContext'
+import { CartContext, Product as ProductProps } from '../contexts/CartContext'
+import { formatCurrency } from '../utils/format'
 
 interface HomeProps {
-  products: {
-    id: string
-    name: string
-    imageUrl: string
-    price: string
-  }[]
+  products: ProductProps[]
 }
 
 export default function Home({ products }: HomeProps) {
@@ -111,11 +106,11 @@ export const getStaticProps: GetStaticProps = async () => {
     return {
       id: product.id,
       name: product.name,
+      description: product.description,
       imageUrl: product.images[0],
-      price: new Intl.NumberFormat('pt-AO', {
-        style: 'currency',
-        currency: 'AOA',
-      }).format(price.unit_amount / 100),
+      price: formatCurrency(price.unit_amount / 100),
+      numberPrice: price.unit_amount / 100,
+      defaultPriceId: price.id,
     }
   })
 

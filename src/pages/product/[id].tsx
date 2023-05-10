@@ -13,48 +13,21 @@ import Stripe from 'stripe'
 import Image from 'next/image'
 import axios from 'axios'
 import { useContext, useState } from 'react'
-import { CartContext } from '@/src/contexts/CartContext'
+import { CartContext, Product as IProduct } from '@/src/contexts/CartContext'
+import { formatCurrency } from '@/src/utils/format'
 
 interface ProductProps {
-  product: {
-    id: string
-    name: string
-    imageUrl: string
-    price: string
-    description: string
-    defaultPriceId: string
-  }
+  product: IProduct
 }
 
 export default function Product({ product }: ProductProps) {
   const { addProductOnCart } = useContext(CartContext)
-  const [isCreatingCheckoutSession, setIsCreatingCheckoutSession] =
-    useState(false)
   const { isFallback } = useRouter()
 
   // fallback verifica se os dados do produto já foram carregados...
 
   if (isFallback) {
     return <p>Loading...</p>
-  }
-
-  async function handleBuyProduct() {
-    try {
-      setIsCreatingCheckoutSession(true)
-
-      const response = await axios.post('/api/checkout', {
-        priceId: product.defaultPriceId,
-      })
-
-      const { checkoutUrl } = response.data
-
-      window.location.href = checkoutUrl
-    } catch (err) {
-      // Conectar com uma ferramenta de observabilidade (Datadog / Sentry)
-      setIsCreatingCheckoutSession(false)
-
-      alert('Falha ao redirecionar para o checkout')
-    }
   }
 
   return (
@@ -74,10 +47,7 @@ export default function Product({ product }: ProductProps) {
 
           <p>{product.description}</p>
 
-          <button
-            disabled={isCreatingCheckoutSession}
-            onClick={() => addProductOnCart(product)}
-          >
+          <button onClick={() => addProductOnCart(product)}>
             Colocar na sacola
           </button>
         </ProductDetails>
@@ -115,10 +85,8 @@ export const getStaticProps: GetStaticProps<any, { id: string }> = async ({
         id: product.id,
         name: product.name,
         imageUrl: product.images[0],
-        price: new Intl.NumberFormat('pt-AO', {
-          style: 'currency',
-          currency: 'AOA',
-        }).format(price.unit_amount / 100),
+        price: formatCurrency(price.unit_amount / 100),
+        numberPrice: price.unit_amount / 100,
         description: product.description,
         defaultPriceId: price.id,
       },

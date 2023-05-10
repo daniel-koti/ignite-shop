@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@radix-ui/react-dialog": "^1.0.3",
     "@stitches/react": "^1.2.8",
     "axios": "^1.4.0",
     "eslint-config-next": "13.4.0",
