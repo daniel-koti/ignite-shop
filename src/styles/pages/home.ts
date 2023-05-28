@@ -74,7 +74,7 @@ export const ProductWrapper = styled('div', {
 })
 
 export const Product = styled(Link, {
-  background: 'linear-gradient(180deg, #1ea483 0%, #7465d4 100%)',
+  background: '$gray800',
   display: 'flex',
   justifyContent: 'center',
   borderRadius: 8,

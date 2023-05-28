@@ -48,7 +48,7 @@ export default function Product({ product }: ProductProps) {
           <p>{product.description}</p>
 
           <button onClick={() => addProductOnCart(product)}>
-            Colocar na sacola
+            Colocar no carrinho
           </button>
         </ProductDetails>
       </ProductContainer>

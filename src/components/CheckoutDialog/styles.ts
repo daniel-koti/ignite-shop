@@ -1,5 +1,10 @@
-import { styled } from '@/src/styles'
+import { keyframes, styled } from '@/src/styles'
 import * as Dialog from '@radix-ui/react-dialog'
+
+const slide = keyframes({
+  '0%': { opacity: 0 },
+  '100%': { opacity: 1, transform: 'translateX(0)' },
+})
 
 export const Overlay = styled(Dialog.Overlay, {
   position: 'fixed',
@@ -25,6 +30,8 @@ export const Content = styled(Dialog.Content, {
   backgroundColor: '$gray800',
   boxShadow: '-4px 0px 30px rgba(0, 0, 0, 0.8)',
   zIndex: 10,
+  transform: 'translateX(500px)',
+  animation: `${slide} .3s forwards ease-in-out`,
 })
 
 export const ContentWrapper = styled('div', {

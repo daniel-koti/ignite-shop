@@ -25,9 +25,7 @@ export function Header() {
 
   return (
     <HeaderContainer>
-      <Link href="/">
-        <Image src={logoImg} alt="" />
-      </Link>
+      <Link href="/">Produtos</Link>
 
       <Dialog.Root open={isCheckoutDialogOpen}>
         <Dialog.Trigger asChild>

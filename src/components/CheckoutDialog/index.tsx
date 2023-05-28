@@ -56,7 +56,7 @@ export function CheckoutDialog({ onCloseModal }: CheckoutDialogProps) {
     <Dialog.Portal>
       <Overlay />
       <Content>
-        <Title>Sacola de compras</Title>
+        <Title>Carrinho de compras</Title>
 
         <CloseButton onClick={onCloseModal}>
           <X size={24} />
